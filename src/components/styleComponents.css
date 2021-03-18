@@ -1,0 +1,14 @@
+.block-messages {
+    width: 80%;
+    height: 70vh;
+    border: 1px solid gray;
+    overflow-y: auto;
+    margin-bottom: -100px;
+    
+}
+
+.messages {
+    margin: 10px;
+    border-radius: 15px;
+    padding: 5px;
+}
