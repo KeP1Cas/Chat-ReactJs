@@ -2,13 +2,34 @@
     width: 80%;
     height: 70vh;
     border: 1px solid gray;
+    overflow: hidden;
     overflow-y: auto;
-    margin-bottom: -100px;
-    
+    margin-bottom: -50px;
+    margin-top: 50px;
+}
+
+::-webkit-scrollbar {
+    width: 15px;
+}
+
+::-webkit-scrollbar-track{
+    background: #da8386;
+   
+}
+
+::-webkit-scrollbar-thumb {
+    background: #f50057;
+    border-radius: 50px;
+    border: 1px solid #da8386;
 }
 
 .messages {
     margin: 10px;
     border-radius: 15px;
     padding: 5px;
+    
+}
+
+.mess-input{
+    width: 700px;
 }
