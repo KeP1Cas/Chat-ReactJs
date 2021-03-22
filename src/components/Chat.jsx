@@ -27,19 +27,6 @@ const Chat = () => {
     firestore.collection("messages").orderBy("createdAt")
   );
 
-  const divRef = useRef()
-
-  useEffect(() => {
-    if (divRef.current) {
-      divRef.current.scrollIntoView(
-        {
-          behavior: 'smooth',
-          block: 'end',
-          inline: 'nearest'
-        })
-    }
-  })
-
   const sendMessage = async (e) => {
     firestore.collection("messages").add({
       uid: user.uid,
@@ -47,9 +34,16 @@ const Chat = () => {
       photoURL: user.photoURL,
       text: value,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-    });
+    })
     setValue("");
-    e.preventDefault();
+  };
+
+  const chatContainer = React.createRef();
+  const scrollToMyRef = () => {
+    const scroll =
+      chatContainer.current.scrollHeight -
+      chatContainer.current.clientHeight;
+      chatContainer.current.scrollTo(0, scroll);
   };
 
   if (loading) {
@@ -60,6 +54,12 @@ const Chat = () => {
     e.preventDefault();
   }
 
+  const onClicks = (e) => {
+    e.preventDefault()
+    scrollToMyRef()
+    sendMessage()
+  }
+
   return (
     <Container>
       <Grid
@@ -67,7 +67,7 @@ const Chat = () => {
         justify={"center"}
         style={{ height: window.innerHeight - 50, marginTop: 20 }}
       >
-        <div className="block-messages" ref={divRef}>
+        <div className="block-messages" ref={chatContainer}>
           {messages.map((message, id) => (
             <div
               key={id}
@@ -109,7 +109,7 @@ const Chat = () => {
             {value !== "" ? (
               <Button
                 type="submit"
-                onClick={sendMessage}
+                onClick={onClicks}
                 variant="contained"
                 color="secondary"
                 className={classes.button}
